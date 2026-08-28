@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages (flexible token)
 
 on:
   push:
@@ -10,17 +10,28 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy:
+  publish:
     runs-on: ubuntu-latest
-    name: Build and deploy
+    name: Publish to gh-pages
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: '.'
+      - name: Select deploy token
+        run: |
+          if [ -n "${{ secrets.GH_PAGES_PAT }}" ]; then
+            echo "Using GH_PAGES_PAT secret for deploy";
+            echo "DEPLOY_TOKEN=${{ secrets.GH_PAGES_PAT }}" >> $GITHUB_ENV;
+          else
+            echo "Using default GITHUB_TOKEN for deploy";
+            echo "DEPLOY_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV;
+          fi
 
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ env.DEPLOY_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./
+          # keep history small
+          commit_message: "Deploy site to gh-pages: ${{ github.sha }}"
