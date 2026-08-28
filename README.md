@@ -83,6 +83,26 @@ Support
 -------
 If you want a deployment workflow added (GitHub Actions), a README update with a custom domain example, or an example pages.yml committed to the repo, tell me which option and I will add it.
 
+Adding a GH_PAGES_PAT (optional, recommended for reliable CI deploys)
+----------------------------------------------------------------------
+By default the workflow uses the built-in GITHUB_TOKEN. In some org or repo settings the GITHUB_TOKEN may not have permission to push a deployment branch. To make CI pushes reliable, create a Personal Access Token (PAT) with minimal scopes and add it as a repository secret named GH_PAGES_PAT.
+
+1) Create a PAT
+- Go to https://github.com/settings/tokens → Generate new token
+- Scopes: repo (full control of private repos) OR select 'public_repo' for public-only repos. Keep other scopes minimal.
+- Copy the token (you will not be able to see it again).
+
+2) Add the secret to the repository
+- Go to the repository on GitHub → Settings → Secrets & variables → Actions → New repository secret
+- Name: GH_PAGES_PAT
+- Value: paste the token
+
+3) Workflow uses the secret
+- The provided .github/workflows/pages.yml checks for GH_PAGES_PAT and uses it when available. If not set, it falls back to GITHUB_TOKEN.
+
+4) Re-run workflow
+- After adding the secret, re-run the workflow from the Actions UI or push a new commit to main to trigger an automatic deploy.
+
 License
 -------
 Use and adapt the files in this repo as you wish. No warranty. 
