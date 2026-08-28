@@ -1,0 +1,88 @@
+FRANCIS FX ACADEMY — Static Website
+=================================
+
+This repository contains a premium, responsive, static website for FRANCIS FX ACADEMY (HTML, CSS, JavaScript). The site is educational only — it does not give financial advice or promise trading profits. Use this README to preview locally and deploy to GitHub Pages.
+
+Contents
+--------
+- index.html — main site
+- styles.css — dark, premium theme
+- script.js — interactive behavior (menu, dashboard, progress, toasts)
+
+Local preview
+-------------
+Quick options to preview the site locally (no build step required):
+
+1) Open directly
+- Double-click index.html or open it from your browser (good for basic testing).
+
+2) Simple local HTTP server (recommended)
+- Python 3:  python -m http.server 8000
+  then open http://localhost:8000
+
+- Node (http-server):  npx http-server -p 8080
+  then open http://localhost:8080
+
+Deploy to GitHub Pages (manual)
+------------------------------
+1. Commit & push the branch to GitHub:
+   git add -A
+   git commit -m "Add Francis FX Academy site"
+   git push origin <branch-name>
+
+2. On GitHub (UI):
+   - Go to the repository Settings → Pages
+   - Under "Build and deployment" or "Source" choose Branch: select your branch (e.g., main or the feature branch) and folder: / (root)
+   - Save. GitHub will publish a site and show the URL (https://<user>.github.io/<repo>/).
+
+Deploy to GitHub Pages (Actions - recommended for branch builds)
+-------------------------------------------------------------
+If you prefer automatic publishing via GitHub Actions, create a workflow that builds (if needed) and deploys the static files. Example flow (recommended pattern):
+
+- Use the official Pages Actions: actions/upload-pages-artifact and actions/deploy-pages.
+- Create file: .github/workflows/pages.yml with a job that uploads the site contents and calls deploy-pages.
+
+Example (brief):
+
+  name: Deploy to GitHub Pages
+  on:
+    push:
+      branches: [ main ]
+  jobs:
+    build-and-deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - name: Upload artifact
+          uses: actions/upload-pages-artifact@v1
+          with:
+            path: '.'
+        - name: Deploy
+          uses: actions/deploy-pages@v1
+
+After the workflow finishes the site will be available at the Pages URL for your repo.
+
+Custom domain
+-------------
+- Add a CNAME file at repository root containing your domain name (one line).
+- Configure your DNS provider: point A records to GitHub Pages IP addresses or set an ALIAS/ANAME as required.
+- In GitHub Pages settings, set the custom domain and enable HTTPS.
+
+Notes & next steps
+------------------
+- Payment & enrollment are demo placeholders. Integrate a secure payment provider (Stripe/PayPal) and a backend for real enrollment and authentication.
+- The dashboard uses localStorage for demo progress — move to a secure server-side store for production and user accounts.
+- Add server-side form handling or a service (Formspree, Netlify Forms) to accept contact messages.
+- Replace demo content with real lessons (video hosting, protected assets) before providing paid access.
+
+Disclaimer
+----------
+Forex and margin trading involve substantial risk. This site provides educational material only and is not financial advice. Do not risk money you cannot afford to lose. Consult a licensed financial professional for investment advice.
+
+Support
+-------
+If you want a deployment workflow added (GitHub Actions), a README update with a custom domain example, or an example pages.yml committed to the repo, tell me which option and I will add it.
+
+License
+-------
+Use and adapt the files in this repo as you wish. No warranty. 
