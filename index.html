@@ -1,35 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Francis FX Academy - Learn Forex Trading from Beginner to Advanced Level">
-    <meta name="keywords" content="forex trading, forex course, forex academy, trading education">
-    <title>Francis FX Academy | Professional Forex Trading Course</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Francis FX Academy - Learn Forex from beginner to advanced. Educational content only, not financial advice.">
+    <title>FRANCIS FX ACADEMY — Forex Education</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-icon">📈</span>
-                <span>Francis FX Academy</span>
+<body class="dark">
+    <!-- NAVIGATION -->
+    <header class="site-header">
+        <div class="header-inner container">
+            <div class="brand" tabindex="0">
+                <div class="brand-logo">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="2" y="2" width="20" height="20" rx="4" fill="#0f1724"></rect>
+                        <path d="M4 16L9 9L14 13L20 6" stroke="#10b981" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <div class="brand-welcome">Welcome to</div>
+                    <div class="brand-name">FRANCIS FX ACADEMY</div>
+                </div>
             </div>
-            <div class="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" onclick="closeMenu()">Home</a></li>
-                <li><a href="#courses" onclick="closeMenu()">Courses</a></li>
-                <li><a href="#about" onclick="closeMenu()">About</a></li>
-                <li><a href="#testimonials" onclick="closeMenu()">Testimonials</a></li>
-                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
-            </ul>
+
+            <nav class="main-nav">
+                <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleMenu()">☰</button>
+                <ul class="nav-list" id="navList">
+                    <li><a href="#home" data-nav>Home</a></li>
+                    <li><a href="#courses" data-nav>Courses</a></li>
+                    <li><a href="#strategies" data-nav>Strategies</a></li>
+                    <li><a href="#path" data-nav>Learning Path</a></li>
+                    <li><a href="#dashboard" data-nav>Dashboard</a></li>
+                    <li class="nav-cta"><button class="btn btn-ghost" onclick="openPayment()">Payment</button></li>
+                    <li><a href="#about" data-nav>About</a></li>
+                    <li><a href="#contact" data-nav>Contact</a></li>
+                    <li><a href="#login" class="btn btn-outline">Login</a></li>
+                </ul>
+            </nav>
         </div>
-    </nav>
+    </header>
+
+    <!-- HERO -->
+    <section id="home" class="hero container">
+        <div class="hero-left">
+            <h1 class="hero-title">Master Forex Trading — Beginner to Advanced</h1>
+            <p class="hero-sub">Practical education, step-by-step learning path, and real-world strategy training. No promises of profits — this is an educational site only.</p>
+            <p class="hero-desc">Learn currency markets, smart money concepts (SMC), technical analysis, and build reproducible trading plans with clear risk rules.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#courses" onclick="scrollToSection('courses')">Start Learning</a>
+                <a class="btn btn-outline" href="#path" onclick="scrollToSection('path')">Learning Path</a>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="chart-card">
+                <div class="chart-header">Live Demo Chart</div>
+                <div class="chart-canvas" aria-hidden="true">
+                    <!-- Decorative simulated candles -->
+                    <div class="candle c1"></div>
+                    <div class="candle c2"></div>
+                    <div class="candle c3"></div>
+                    <div class="candle c4"></div>
+                    <div class="candle c5"></div>
+                </div>
+                <div class="chart-caption">Professional trading visual — educational demo only</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COURSES -->
+    <section id="courses" class="section container">
+        <header class="section-header">
+            <h2>Courses</h2>
+            <p>Three structured levels with SMC (Smart Money Concept) emphasis on intermediate/advanced tracks.</p>
+        </header>
+
+        <div class="cards-grid" id="coursesGrid">
+            <!-- BEGINNER -->
+            <article class="course-card" data-level="beginner" tabindex="0">
+                <header>
+                    <h3>Beginner</h3>
+                    <div class="price">Free</div>
+                </header>
+                <p class="muted">Foundations of forex trading. Ideal for complete beginners.</p>
+                <ul class="topics">
+                    <li>What is Forex</li>
+                    <li>Currency Pairs, Pips & Lots</li>
+                    <li>Spread & Leverage</li>
+                    <li>Trading Sessions</li>
+                    <li>Risk Management Basics</li>
+                    <li>Basic Chart Reading & Candlesticks</li>
+                </ul>
+                <div class="card-actions">
+                    <button class="btn btn-secondary" onclick="enroll('Beginner')">Enroll</button>
+                    <button class="btn btn-ghost" onclick="viewLessons('beginner')">View Lessons</button>
+                </div>
+            </article>
+
+            <!-- INTERMEDIATE (SMC) -->
+            <article class="course-card featured" data-level="intermediate" tabindex="0">
+                <header>
+                    <h3>Intermediate — SMC Focus</h3>
+                    <div class="price">$99</div>
+                </header>
+                <p class="muted">Develop market structure understanding and apply Smart Money Concepts (SMC).</p>
+                <ul class="topics">
+                    <li>Market Structure</li>
+                    <li>Support & Resistance</li>
+                    <li>Trend & Momentum Analysis</li>
+                    <li>Candlestick Patterns</li>
+                    <li>Technical Indicators</li>
+                    <li>Trading Psychology & Plan Building</li>
+                </ul>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="enroll('Intermediate')">Enroll</button>
+                    <button class="btn btn-ghost" onclick="viewLessons('intermediate')">View Lessons</button>
+                </div>
+            </article>
+
+            <!-- ADVANCED (SMC & ALGO) -->
+            <article class="course-card" data-level="advanced" tabindex="0">
+                <header>
+                    <h3>Advanced — SMC & Professional</h3>
+                    <div class="price">$199</div>
+                </header>
+                <p class="muted">Advanced Smart Money Concepts, liquidity, fair value gaps, and systematic approaches.</p>
+                <ul class="topics">
+                    <li>Smart Money Concepts (SMC)</li>
+                    <li>Liquidity Pools & Order Blocks</li>
+                    <li>Fair Value Gaps & Market Structure Shifts</li>
+                    <li>Advanced Risk Management & Backtesting</li>
+                    <li>Algorithmic & Systematic Trading Basics</li>
+                    <li>Advanced Trading Psychology</li>
+                </ul>
+                <div class="card-actions">
+                    <button class="btn btn-secondary" onclick="enroll('Advanced')">Enroll</button>
+                    <button class="btn btn-ghost" onclick="viewLessons('advanced')">View Lessons</button>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- LESSONS SHORT PREVIEW -->
+    <section id="strategies" class="section section-alt container">
+        <header class="section-header">
+            <h2>Curriculum Overview</h2>
+            <p>Key lessons by level — practice-focused and modular.</p>
+        </header>
+        <div class="curriculum-grid">
+            <div class="curriculum-card">
+                <h4>Beginner</h4>
+                <ol>
+                    <li>What is Forex?</li>
+                    <li>Currency Pairs</li>
+                    <li>Pips, Lots & Spreads</li>
+                    <li>Leverage Explained</li>
+                    <li>Trading Sessions</li>
+                    <li>Risk Management</li>
+                    <li>Basic Chart Reading</li>
+                </ol>
+            </div>
+            <div class="curriculum-card">
+                <h4>Intermediate</h4>
+                <ol>
+                    <li>Market Structure</li>
+                    <li>Support & Resistance</li>
+                    <li>Trend Analysis</li>
+                    <li>Candlestick Patterns</li>
+                    <li>Technical Analysis</li>
+                    <li>Strategy Development</li>
+                    <li>Trading Psychology</li>
+                </ol>
+            </div>
+            <div class="curriculum-card">
+                <h4>Advanced</h4>
+                <ol>
+                    <li>Smart Money Concepts</li>
+                    <li>Liquidity & Order Blocks</li>
+                    <li>Fair Value Gaps</li>
+                    <li>Market Structure Shifts</li>
+                    <li>Backtesting & Edge</li>
+                    <li>Advanced Risk Management</li>
+                    <li>Algo Basics</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEARNING PATH -->
+    <section id="path" class="section container">
+        <header class="section-header">
+            <h2>Recommended Learning Path</h2>
+            <p>Follow this path: Beginner → Intermediate (SMC) → Advanced</p>
+        </header>
+        <div class="path-steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                    <h5>Beginner Foundations</h5>
+                    <p>Basics, chart reading, risk control</p>
+                </div>
+            </div>
+            <div class="connector"></div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                    <h5>Intermediate — SMC</h5>
+                    <p>Market structure, order blocks, liquidity</p>
+                </div>
+            </div>
+            <div class="connector"></div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                    <h5>Advanced</h5>
+                    <p>Backtesting, system design, professional risk</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STUDENT DASHBOARD (demo) -->
+    <section id="dashboard" class="section section-alt container">
+        <header class="section-header">
+            <h2>Student Dashboard</h2>
+            <p>Track progress, resume lessons, and view your current level.</p>
+        </header>
+        <div class="dashboard">
+            <div class="dashboard-left">
+                <div class="profile-card">
+                    <div class="avatar">FF</div>
+                    <div>
+                        <h4 id="studentName">Student Name</h4>
+                        <p id="studentLevel">Current Level: <strong id="currentLevel">Beginner</strong></p>
+                    </div>
+                </div>
+
+                <div class="progress-list">
+                    <h5>Course Progress</h5>
+                    <div class="progress-item">
+                        <div class="pi-head">
+                            <div>Beginner</div>
+                            <div id="pctBeginner">0%</div>
+                        </div>
+                        <div class="progress"><div id="barBeginner" class="progress-bar" style="width:0%"></div></div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="pi-head">
+                            <div>Intermediate</div>
+                            <div id="pctIntermediate">0%</div>
+                        </div>
+                        <div class="progress"><div id="barIntermediate" class="progress-bar" style="width:0%"></div></div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="pi-head">
+                            <div>Advanced</div>
+                            <div id="pctAdvanced">0%</div>
+                        </div>
+                        <div class="progress"><div id="barAdvanced" class="progress-bar" style="width:0%"></div></div>
+                    </div>
+
+                    <div class="dashboard-actions">
+                        <button class="btn btn-primary" onclick="continueLearning()">Continue Learning</button>
+                        <button class="btn btn-ghost" onclick="resetProgress()">Reset Progress</button>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-right">
+                <div class="recent-activity">
+                    <h5>Recent Activity</h5>
+                    <ul id="activityList" class="activity-list">
+                        <li>No activity yet — start a lesson to populate this feed.</li>
+                    </ul>
+                </div>
+
+                <div class="cta-box">
+                    <h4>Ready to level up?</h4>
+                    <p>Enroll in Intermediate SMC course to deepen market structure understanding.</p>
+                    <button class="btn btn-primary" onclick="scrollToSection('courses')">Browse Courses</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section container">
+        <header class="section-header">
+            <h2>About FRANCIS FX ACADEMY</h2>
+            <p>Francis FX Academy delivers clear, practical forex education for learners at all levels. Our focus is on reproducible methods, risk control, and building a trading process.</p>
+        </header>
+        <div class="about-grid">
+            <div>
+                <h4>Mission</h4>
+                <p>To teach disciplined trading through education, practice, and community support — not financial advice.</p>
+            </div>
+            <div>
+                <h4>What We Offer</h4>
+                <ul>
+                    <li>Structured courses from beginner to advanced</li>
+                    <li>SMC and market structure training</li>
+                    <li>Practical exercises and templates</li>
+                    <li>Student dashboard and progress tracking</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section section-alt container">
+        <header class="section-header">
+            <h2>Contact</h2>
+            <p>Questions about courses, payments, or access? Reach out below.</p>
+        </header>
+        <form id="contactForm" class="contact-form" onsubmit="handleContact(event)">
+            <div class="form-row">
+                <input name="name" type="text" placeholder="Your name" required>
+                <input name="email" type="email" placeholder="Email" required>
+            </div>
+            <input name="subject" type="text" placeholder="Subject" required>
+            <textarea name="message" placeholder="Message" rows="5" required></textarea>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Send Message</button>
+                <button class="btn btn-ghost" type="button" onclick="openPayment()">Payment</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="f-col">
+                <div class="brand-mini">FRANCIS FX ACADEMY</div>
+                <p class="muted">Educational materials only. Forex trading carries significant risk. This site provides educational resources, not financial advice. No promises of profit.</p>
+            </div>
+            <div class="f-col">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#path">Learning Path</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms</a></li>
+                    <li><a href="#disclaimer">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h5>Contact</h5>
+                <p class="muted">support@francisfxacademy.com</p>
+                <p class="muted">© <span id="footerYear"></span> Francis FX Academy</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
 
     <!-- Hero Section -->
     <section id="home" class="hero">

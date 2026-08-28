@@ -1,541 +1,190 @@
 /* ============================================
-   FRANCIS FX ACADEMY - JAVASCRIPT FUNCTIONALITY
+   FRANCIS FX ACADEMY - SITE INTERACTIONS (DARK)
+   Clean, modular, and beginner-friendly JavaScript
    ============================================ */
 
-// ============================================
-// MOBILE MENU TOGGLE
-// ============================================
-function toggleMenu() {
-    const navMenu = document.getElementById('navMenu');
-    navMenu.classList.toggle('active');
+// Helper to query safely
+const $ = (sel, ctx=document) => ctx.querySelector(sel);
+const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+/* -----------------------------
+   NAVIGATION & MOBILE MENU
+   ----------------------------- */
+function toggleMenu(){
+    const nav = $('#navList');
+    const toggle = $('#navToggle');
+    if(!nav) return;
+    const open = nav.classList.toggle('open');
+    toggle && toggle.setAttribute('aria-expanded', open);
 }
 
-function closeMenu() {
-    const navMenu = document.getElementById('navMenu');
-    navMenu.classList.remove('active');
-}
-
-// Close mobile menu when window is resized to desktop size
-window.addEventListener('resize', function() {
-    if (window.innerWidth > 768) {
-        document.getElementById('navMenu').classList.remove('active');
+// close when clicking nav links
+document.addEventListener('click', e => {
+    const link = e.target.closest('[data-nav]');
+    if(link){
+        const nav = $('#navList');
+        if(nav && nav.classList.contains('open')) nav.classList.remove('open');
     }
 });
 
-// ============================================
-// SMOOTH SCROLLING
-// ============================================
-function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-        closeMenu();
-    }
+/* -----------------------------
+   SMOOTH SCROLL
+   ----------------------------- */
+function scrollToSection(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ============================================
-// CURRICULUM TABS
-// ============================================
-function showTab(tabId) {
-    // Hide all tabs
-    const tabContents = document.querySelectorAll('.tab-content');
-    tabContents.forEach(tab => {
-        tab.classList.remove('active');
-    });
-
-    // Remove active class from all buttons
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    tabBtns.forEach(btn => {
-        btn.classList.remove('active');
-    });
-
-    // Show selected tab
-    const selectedTab = document.getElementById(tabId);
-    if (selectedTab) {
-        selectedTab.classList.add('active');
-    }
-
-    // Add active class to clicked button
-    event.target.classList.add('active');
+/* -----------------------------
+   COURSE INTERACTIONS
+   ----------------------------- */
+function enroll(level){
+    showToast(`Enrollment flow started for ${level}. Payment handled securely (demo).`,'info');
+    // simulate adding activity and progress
+    addActivity(`Started enrollment for ${level} course`);
 }
 
-// Set first tab as active by default
-document.addEventListener('DOMContentLoaded', function() {
-    const firstTabBtn = document.querySelector('.tab-btn');
-    if (firstTabBtn) {
-        firstTabBtn.classList.add('active');
-    }
-    const firstTab = document.querySelector('.tab-content');
-    if (firstTab) {
-        firstTab.classList.add('active');
-    }
-});
-
-// ============================================
-// ENROLLMENT MODAL
-// ============================================
-const modal = document.getElementById('enrollmentModal');
-
-function enrollCourse(courseLevel) {
-    modal.style.display = 'block';
-    document.getElementById('selectedCourse').textContent = `Enrolling in: ${courseLevel} Level Course`;
-    
-    // Add animation
-    modal.style.animation = 'none';
-    setTimeout(() => {
-        modal.style.animation = 'modalFadeIn 0.3s ease';
-    }, 10);
+function viewLessons(level){
+    showToast(`Showing lessons for ${level} (demo).`,'info');
+    addActivity(`Viewed lessons: ${level}`);
 }
 
-function closeModal() {
-    modal.style.display = 'none';
+function openPayment(){
+    showToast('Payment dialog (demo): use your preferred provider or integrated checkout.','info');
 }
 
-// Close modal when clicking outside of it
-window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-        closeModal();
-    }
-});
+/* -----------------------------
+   CONTACT FORM
+   ----------------------------- */
+function handleContact(e){
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const subject = form.subject.value.trim();
+    const message = form.message.value.trim();
 
-// ============================================
-// ENROLLMENT FORM HANDLING
-// ============================================
-function handleEnrollment(event) {
-    event.preventDefault();
-    
-    const form = event.target;
-    const name = form.querySelector('input[type="text"]').value;
-    const email = form.querySelector('input[type="email"]').value;
-    const experience = form.querySelector('select').value;
-    const goals = form.querySelector('textarea').value;
-
-    // Validate form
-    if (!name || !email || !experience || !goals) {
-        showNotification('Please fill in all fields', 'error');
+    if(!name||!email||!subject||!message){
+        showToast('Please complete all fields','error');
         return;
     }
 
-    // Show success message
-    showNotification(`Thank you ${name}! We've received your enrollment. Check your email at ${email} for next steps.`, 'success');
-    
-    // Clear form
-    form.reset();
-    
-    // Close modal after 2 seconds
-    setTimeout(() => {
-        closeModal();
-    }, 2000);
-}
+    // Simple demo: store contact in localStorage (would be sent to server in real app)
+    const contacts = JSON.parse(localStorage.getItem('ffx_contacts')||'[]');
+    contacts.unshift({name,email,subject,message,date:new Date().toISOString()});
+    localStorage.setItem('ffx_contacts',JSON.stringify(contacts));
 
-// ============================================
-// CONTACT FORM HANDLING
-// ============================================
-function handleFormSubmit(event) {
-    event.preventDefault();
-    
-    const form = event.target;
-    const inputs = form.querySelectorAll('input, textarea');
-    
-    let isValid = true;
-    inputs.forEach(input => {
-        if (!input.value.trim()) {
-            isValid = false;
-            input.style.borderColor = '#d33b27';
-        } else {
-            input.style.borderColor = '#dadce0';
-        }
-    });
-
-    if (!isValid) {
-        showNotification('Please fill in all fields', 'error');
-        return;
-    }
-
-    const name = form.querySelector('input[type="text"]').value;
-    const email = form.querySelector('input[type="email"]').value;
-    const subject = form.querySelectorAll('input')[2].value;
-
-    // Show success message
-    showNotification(`Message received! We'll get back to you soon at ${email}`, 'success');
-    
-    // Clear form
+    showToast('Message sent. We will reply to your email.', 'success');
+    addActivity(`Contact form submitted: ${subject}`);
     form.reset();
 }
 
-// ============================================
-// NOTIFICATION SYSTEM
-// ============================================
-function showNotification(message, type = 'info') {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-    
-    // Add styles
-    const styles = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 20px;
-        border-radius: 8px;
-        background-color: ${type === 'success' ? '#34a853' : type === 'error' ? '#d33b27' : '#1a73e8'};
-        color: white;
-        z-index: 3000;
-        max-width: 400px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        animation: slideIn 0.3s ease;
-        font-weight: 500;
-    `;
-    
-    notification.setAttribute('style', styles);
-    document.body.appendChild(notification);
-
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    }, 5000);
+/* -----------------------------
+   STUDENT DASHBOARD & PROGRESS
+   ----------------------------- */
+function loadProgress(){
+    const prog = JSON.parse(localStorage.getItem('ffx_progress')||'{}');
+    const pB = prog.beginner||0; const pI = prog.intermediate||0; const pA = prog.advanced||0;
+    setProgress('barBeginner','pctBeginner',pB);
+    setProgress('barIntermediate','pctIntermediate',pI);
+    setProgress('barAdvanced','pctAdvanced',pA);
+    const name = prog.name||'Student Name';
+    $('#studentName') && ($('#studentName').textContent = name);
+    $('#currentLevel') && ($('#currentLevel').textContent = prog.level||'Beginner');
 }
 
-// Add animations to document
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// ============================================
-// SCROLL ANIMATIONS
-// ============================================
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.animation = `fadeIn 0.6s ease forwards`;
-            entry.target.style.opacity = '0';
-            setTimeout(() => {
-                entry.target.style.opacity = '1';
-            }, 50);
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// Observe all course cards and feature items on page load
-document.addEventListener('DOMContentLoaded', function() {
-    const elementsToObserve = document.querySelectorAll('.course-card, .feature-item, .testimonial-card, .curriculum-item, .about-feature');
-    elementsToObserve.forEach(element => {
-        observer.observe(element);
-    });
-});
-
-// ============================================
-// COUNTER ANIMATION FOR STATS
-// ============================================
-let hasAnimated = false;
-
-function animateCounters() {
-    if (hasAnimated) return;
-    
-    const statCards = document.querySelectorAll('.stat-card h3');
-    
-    statCards.forEach(card => {
-        const targetText = card.textContent;
-        const targetNumber = parseInt(targetText.replace(/\D/g, ''));
-        const suffix = targetText.replace(/[0-9]/g, '').trim();
-        
-        let current = 0;
-        const increment = Math.ceil(targetNumber / 50);
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= targetNumber) {
-                current = targetNumber;
-                clearInterval(timer);
-            }
-            card.textContent = current.toLocaleString() + suffix;
-        }, 30);
-    });
-    
-    hasAnimated = true;
+function setProgress(barId, pctId, value){
+    const bar = document.getElementById(barId);
+    const pct = document.getElementById(pctId);
+    if(bar) bar.style.width = Math.max(0,Math.min(100,value)) + '%';
+    if(pct) pct.textContent = Math.round(value)+'%';
 }
 
-// Trigger counter animation when stats section is in view
-const statsObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            animateCounters();
-            statsObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-const statsSection = document.querySelector('.stats-section');
-if (statsSection) {
-    statsObserver.observe(statsSection);
+function continueLearning(){
+    // pick current level and simulate progress + activity
+    const level = $('#currentLevel').textContent || 'Beginner';
+    incrementProgressFor(level,8);
+    addActivity(`Continued learning: ${level}`);
+    showToast('Progress saved locally. Keep learning!', 'success');
 }
 
-// ============================================
-// COURSE CARD HOVER EFFECT
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-    const courseCards = document.querySelectorAll('.course-card');
-    
-    courseCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            // Add a subtle glow effect
-            this.style.boxShadow = '0 12px 40px rgba(26, 115, 232, 0.2)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-        });
-    });
-});
-
-// ============================================
-// ACTIVE NAVIGATION LINK HIGHLIGHTING
-// ============================================
-window.addEventListener('scroll', function() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - 200) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.style.color = 'var(--text-dark)';
-        if (link.getAttribute('href').slice(1) === current) {
-            link.style.color = 'var(--primary-color)';
-        }
-    });
-});
-
-// ============================================
-// FORM INPUT ANIMATION
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-    const inputs = document.querySelectorAll('input, textarea, select');
-    
-    inputs.forEach(input => {
-        input.addEventListener('focus', function() {
-            this.style.transform = 'scale(1.02)';
-        });
-        
-        input.addEventListener('blur', function() {
-            this.style.transform = 'scale(1)';
-        });
-    });
-});
-
-// ============================================
-// LAZY LOADING FOR IMAGES
-// ============================================
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                observer.unobserve(img);
-            }
-        });
-    });
-
-    document.querySelectorAll('img[data-src]').forEach(img => imageObserver.observe(img));
+function incrementProgressFor(level,amount){
+    const prog = JSON.parse(localStorage.getItem('ffx_progress')||'{}');
+    if(!prog.beginner) prog.beginner=0; if(!prog.intermediate) prog.intermediate=0; if(!prog.advanced) prog.advanced=0;
+    if(level.toLowerCase().includes('begin')) prog.beginner = Math.min(100,(prog.beginner||0)+amount);
+    if(level.toLowerCase().includes('inter')) prog.intermediate = Math.min(100,(prog.intermediate||0)+amount);
+    if(level.toLowerCase().includes('advanced')) prog.advanced = Math.min(100,(prog.advanced||0)+amount);
+    localStorage.setItem('ffx_progress', JSON.stringify(prog));
+    loadProgress();
 }
 
-// ============================================
-// ACCESSIBILITY - KEYBOARD NAVIGATION
-// ============================================
-document.addEventListener('keydown', function(event) {
-    // Close modal on Escape key
-    if (event.key === 'Escape') {
-        modal.style.display = 'none';
-    }
-    
-    // Close mobile menu on Escape
-    if (event.key === 'Escape') {
-        document.getElementById('navMenu').classList.remove('active');
-    }
-});
-
-// ============================================
-// UTILITY FUNCTION - SMOOTH SCROLL POLYFILL
-// ============================================
-if (!('scrollBehavior' in document.documentElement.style)) {
-    console.log('Smooth scroll not supported, adding polyfill');
-    // Basic fallback for browsers that don't support smooth scroll
+function resetProgress(){
+    localStorage.removeItem('ffx_progress');
+    showToast('Progress reset (local demo).','info');
+    loadProgress();
+    addActivity('Progress reset by user');
 }
 
-// ============================================
-// PAGE PERFORMANCE OPTIMIZATION
-// ============================================
-
-// Debounce function for scroll events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
+/* -----------------------------
+   ACTIVITY FEED
+   ----------------------------- */
+function addActivity(text){
+    const list = document.getElementById('activityList');
+    const items = JSON.parse(localStorage.getItem('ffx_activity')||'[]');
+    items.unshift({text, date:new Date().toLocaleString()});
+    localStorage.setItem('ffx_activity', JSON.stringify(items.slice(0,20)));
+    renderActivity();
 }
 
-// Optimize scroll events
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            // Scroll event handler here
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
-
-// ============================================
-// INITIALIZATION
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Francis FX Academy Website loaded successfully!');
-    
-    // Initialize tooltips
-    initializeTooltips();
-    
-    // Add smooth transitions
-    addSmoothTransitions();
-});
-
-function initializeTooltips() {
-    // Add tooltips to buttons
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(btn => {
-        btn.setAttribute('role', 'button');
-        btn.setAttribute('tabindex', '0');
-    });
+function renderActivity(){
+    const list = document.getElementById('activityList');
+    if(!list) return;
+    const items = JSON.parse(localStorage.getItem('ffx_activity')||'[]');
+    if(items.length===0){ list.innerHTML = '<li>No activity yet — start a lesson to populate this feed.</li>'; return; }
+    list.innerHTML = items.map(i=>`<li><strong>${i.text}</strong><div class="muted" style="font-size:12px">${i.date}</div></li>`).join('');
 }
 
-function addSmoothTransitions() {
-    // Add CSS transitions to all elements
-    const elements = document.querySelectorAll('*');
-    elements.forEach(el => {
-        if (!el.style.transition) {
-            el.style.transition = 'all 0.3s ease';
-        }
-    });
+/* -----------------------------
+   TOAST / NOTIFICATION
+   ----------------------------- */
+function showToast(message, type='info'){
+    const el = document.createElement('div');
+    el.className = 'ffx-toast ffx-'+type;
+    el.textContent = message;
+    Object.assign(el.style,{position:'fixed',right:'20px',bottom:'20px',background:(type==='success'? '#10b981': type==='error'? '#ef4444':'#06b6d4'),color:'#001',padding:'12px 16px',borderRadius:'10px',zIndex:6000,boxShadow:'0 8px 30px rgba(2,6,23,0.6)',maxWidth:'360px'});
+    document.body.appendChild(el);
+    setTimeout(()=>{el.style.opacity=0;el.style.transform='translateY(10px)';},4200);
+    setTimeout(()=>el.remove(),4600);
 }
 
-// ============================================
-// DYNAMIC YEAR IN FOOTER
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-    const year = new Date().getFullYear();
-    const footerText = document.querySelector('.footer-bottom p:first-child');
-    if (footerText) {
-        footerText.textContent = `© ${year} Francis FX Academy. All rights reserved. | Designed with ❤️ for traders`;
-    }
-});
-
-// ============================================
-// GOOGLE ANALYTICS (Optional - Add your tracking ID)
-// ============================================
-// Replace 'GA_ID' with your actual Google Analytics ID
-// window.dataLayer = window.dataLayer || [];
-// function gtag(){dataLayer.push(arguments);}
-// gtag('js', new Date());
-// gtag('config', 'GA_ID');
-
-// ============================================
-// CONVERSION TRACKING
-// ============================================
-function trackEnrollment(courseLevel) {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'enrollment', {
-            'course_level': courseLevel,
-            'timestamp': new Date().toISOString()
-        });
+/* -----------------------------
+   INIT
+   ----------------------------- */
+function init(){
+    loadProgress();
+    renderActivity();
+    // footer year
+    const fy = document.getElementById('footerYear'); if(fy) fy.textContent = new Date().getFullYear();
+    // sample onboarding data if none
+    if(!localStorage.getItem('ffx_progress')){
+        localStorage.setItem('ffx_progress', JSON.stringify({beginner:8,intermediate:0,advanced:0,level:'Beginner',name:'Student Name'}));
     }
 }
 
-function trackContactSubmit() {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'contact_form_submit', {
-            'timestamp': new Date().toISOString()
-        });
+window.addEventListener('DOMContentLoaded', init);
+
+/* -----------------------------
+   Accessibility: close menus on Esc
+   ----------------------------- */
+window.addEventListener('keydown', e=>{
+    if(e.key==='Escape'){
+        const nav = $('#navList'); if(nav && nav.classList.contains('open')) nav.classList.remove('open');
     }
-}
-
-// ============================================
-// FEATURE DETECTION
-// ============================================
-function checkBrowserSupport() {
-    const features = {
-        'CSS Grid': CSS.supports('display', 'grid'),
-        'Flexbox': CSS.supports('display', 'flex'),
-        'CSS Variables': CSS.supports('--test', '0'),
-        'Local Storage': typeof(Storage) !== 'undefined'
-    };
-    
-    return features;
-}
-
-// ============================================
-// ERROR LOGGING
-// ============================================
-window.addEventListener('error', function(event) {
-    console.error('Error:', event.error);
-    // Send to error logging service
-    // logError(event.error);
 });
 
-// ============================================
-// PERFORMANCE MONITORING
-// ============================================
-if (window.performance && window.performance.timing) {
-    window.addEventListener('load', function() {
-        const perfData = window.performance.timing;
-        const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-        console.log('Page load time: ' + pageLoadTime + 'ms');
-    });
-}
+/* -----------------------------
+   Keep code readable and well-commented for beginners
+   ----------------------------- */
 
-// ============================================
-// END OF SCRIPT
-// ============================================
+/* End of file */
