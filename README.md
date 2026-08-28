@@ -9,6 +9,51 @@ Contents
 - styles.css — dark, premium theme
 - script.js — interactive behavior (menu, dashboard, progress, toasts)
 
+Quick DNS and Pages checklist (make site live on www.francisfxacademy.com)
+---------------------------------------------------------------------------
+Follow these exact steps to make the custom domain live and enable HTTPS.
+
+1) Add DNS records at your domain registrar/DNS host
+- Create a CNAME record for the www host:
+  - Host / Name: www
+  - Type: CNAME
+  - Value / Target: tispeter7-glitch.github.io
+  - TTL: use default (e.g., 3600)
+
+- (Optional) To serve the apex domain (francisfxacademy.com) and redirect to www, either:
+  a) Add A records for the apex to GitHub Pages IPs (recommended):
+     - Name: @ (or blank depending on provider)
+     - Type: A
+     - Values:
+       - 185.199.108.153
+       - 185.199.109.153
+       - 185.199.110.153
+       - 185.199.111.153
+  b) Or use your registrar's forwarding/redirect to forward francisfxacademy.com → https://www.francisfxacademy.com
+
+2) Verify DNS propagation (examples)
+- macOS / Linux:
+  - dig +short CNAME www.francisfxacademy.com
+  - dig +short www.francisfxacademy.com
+  - curl -I -L https://www.francisfxacademy.com
+
+- Windows (PowerShell):
+  - nslookup www.francisfxacademy.com
+  - curl.exe -I -L https://www.francisfxacademy.com
+
+3) GitHub Pages & HTTPS
+- A CNAME file is present in this repo with the domain: www.francisfxacademy.com
+- Once DNS resolves, GitHub will provision TLS automatically. In the repo Settings → Pages you should see the custom domain and an option to "Enforce HTTPS". Enable it if available.
+
+4) Troubleshooting
+- If DNS doesn't resolve, check there are no conflicting records for the same host (e.g., both CNAME and A record for www).
+- Use ALIAS/ANAME when your DNS provider supports them for apex records.
+
+5) Want me to verify?
+- After you add the CNAME (and optional apex records), tell me and I'll poll the domain, confirm HTTPS, and verify the live site content.
+
+
+
 Local preview
 -------------
 Quick options to preview the site locally (no build step required):
