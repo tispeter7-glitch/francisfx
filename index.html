@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Francis FX Academy - Learn Forex Trading from Beginner to Advanced Level">
+    <meta name="keywords" content="forex trading, forex course, forex academy, trading education">
+    <title>Francis FX Academy | Professional Forex Trading Course</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">📈</span>
+                <span>Francis FX Academy</span>
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                <li><a href="#courses" onclick="closeMenu()">Courses</a></li>
+                <li><a href="#about" onclick="closeMenu()">About</a></li>
+                <li><a href="#testimonials" onclick="closeMenu()">Testimonials</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Master Forex Trading</h1>
+            <p class="hero-subtitle">From Beginner to Advanced Professional Trader</p>
+            <p class="hero-description">
+                Join thousands of successful traders who've transformed their financial future with Francis FX Academy
+            </p>
+            <button class="btn btn-primary" onclick="scrollToSection('courses')">Start Learning Today</button>
+        </div>
+        <div class="hero-image">
+            <div class="chart-animation">
+                <div class="candle candle-1"></div>
+                <div class="candle candle-2"></div>
+                <div class="candle candle-3"></div>
+                <div class="candle candle-4"></div>
+                <div class="candle candle-5"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>10,000+</h3>
+                <p>Active Students</p>
+            </div>
+            <div class="stat-card">
+                <h3>500+</h3>
+                <p>Video Lessons</p>
+            </div>
+            <div class="stat-card">
+                <h3>95%</h3>
+                <p>Success Rate</p>
+            </div>
+            <div class="stat-card">
+                <h3>24/7</h3>
+                <p>Support Available</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses">
+        <div class="container">
+            <h2 class="section-title">Our Professional Courses</h2>
+            <p class="section-subtitle">Choose your learning path and start your forex journey today</p>
+            
+            <div class="courses-grid">
+                <!-- Beginner Course -->
+                <div class="course-card" data-level="beginner">
+                    <div class="course-header beginner-header">
+                        <h3>Beginner Level</h3>
+                        <span class="course-badge">Level 1</span>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-price"><span class="currency">$</span>49</p>
+                        <p class="course-description">Perfect for newcomers to the forex market</p>
+                        <ul class="course-features">
+                            <li>✓ Introduction to Forex Markets</li>
+                            <li>✓ Currency Pairs Explained</li>
+                            <li>✓ Reading Charts & Candlesticks</li>
+                            <li>✓ Basic Trading Terminology</li>
+                            <li>✓ Risk Management 101</li>
+                            <li>✓ Opening Your First Account</li>
+                            <li>✓ 20+ Video Lessons</li>
+                            <li>✓ Practice Exercises</li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="enrollCourse('Beginner')">Enroll Now</button>
+                    </div>
+                </div>
+
+                <!-- Intermediate Course -->
+                <div class="course-card featured" data-level="intermediate">
+                    <div class="course-ribbon">Most Popular</div>
+                    <div class="course-header intermediate-header">
+                        <h3>Intermediate Level</h3>
+                        <span class="course-badge">Level 2</span>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-price"><span class="currency">$</span>99</p>
+                        <p class="course-description">For traders ready to advance their skills</p>
+                        <ul class="course-features">
+                            <li>✓ Technical Analysis Mastery</li>
+                            <li>✓ Support & Resistance Levels</li>
+                            <li>✓ Trading Indicators & Oscillators</li>
+                            <li>✓ Trend Trading Strategies</li>
+                            <li>✓ Money Management Techniques</li>
+                            <li>✓ Emotional Trading Psychology</li>
+                            <li>✓ 40+ Video Lessons</li>
+                            <li>✓ Live Trading Sessions</li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="enrollCourse('Intermediate')">Enroll Now</button>
+                    </div>
+                </div>
+
+                <!-- Advanced Course -->
+                <div class="course-card" data-level="advanced">
+                    <div class="course-header advanced-header">
+                        <h3>Advanced Level</h3>
+                        <span class="course-badge">Level 3</span>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-price"><span class="currency">$</span>199</p>
+                        <p class="course-description">For professional & experienced traders</p>
+                        <ul class="course-features">
+                            <li>✓ Advanced Chart Patterns</li>
+                            <li>✓ Harmonic Trading Patterns</li>
+                            <li>✓ Elliott Wave Theory</li>
+                            <li>✓ Swing Trading Strategies</li>
+                            <li>✓ Scalping & Day Trading</li>
+                            <li>✓ Algorithmic Trading Basics</li>
+                            <li>✓ 60+ Video Lessons</li>
+                            <li>✓ 1-on-1 Mentorship</li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="enrollCourse('Advanced')">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Curriculum Section -->
+    <section class="curriculum">
+        <div class="container">
+            <h2 class="section-title">Comprehensive Curriculum</h2>
+            <div class="curriculum-tabs">
+                <button class="tab-btn active" onclick="showTab('beginner-tab')">Beginner</button>
+                <button class="tab-btn" onclick="showTab('intermediate-tab')">Intermediate</button>
+                <button class="tab-btn" onclick="showTab('advanced-tab')">Advanced</button>
+            </div>
+
+            <!-- Beginner Curriculum -->
+            <div id="beginner-tab" class="tab-content active">
+                <div class="curriculum-grid">
+                    <div class="curriculum-item">
+                        <span class="item-number">01</span>
+                        <h4>Module 1: Forex Basics</h4>
+                        <p>Learn the fundamentals of forex trading, market structure, and how it works</p>
+                    </div>
+                    <div class="curriculum-item">
+                        <span class="item-number">02</span>
+                        <h4>Module 2: Currency Pairs</h4>
+                        <p>Understand major, minor, and exotic pairs, and their characteristics</p>
+                    </div>
+                    <div class="curriculum-item">
+                        <span class="item-number">03</span>
+                        <h4>Module 3: Chart Analysis</h4>
+                        <p>Master reading charts, candlesticks, and basic chart patterns</p>
+                    </div>
+                    <div class="curriculum-item">
+                        <span class="item-number">04</span>
+                        <h4>Module 4: Trading Basics</h4>
+                        <p>First steps in actual trading and managing your first positions</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate Curriculum -->
+            <div id="intermediate-tab" class="tab-content">
+                <div class="curriculum-grid">
+                    <div class="curriculum-item">
+                        <span class="item-number">01</span>
+                        <h4>Module 1: Technical Analysis</h4>
+                        <p>Deep dive into technical analysis, trends, and market structure</p>
+                    </div>
+                    <div class="curriculum-item">
+                        <span class="item-number">02</span>
+                        <h4>Module 2: Trading Indicators</h4>
+                        <p>Learn key indicators: RSI, MACD, Moving Averages, and more</p>
+                    </div>
+                    <div class="curriculum-item">
+                        <span class="item-number">03</span>
+                        <h4>Module 3: Strategy Development</h4>
+                        <p>Create and backtest your own profitable trading strategies</p>
+                    </div>
+                    <div class="curriculum-item">
+                        <span class="item-number">04</span>
+                        <h4>Module 4: Risk Management</h4>
+                        <p>Advanced money management and position sizing techniques</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Curriculum -->
+            <div id="advanced-tab" class="tab-content">
+                <div class="curriculum-grid">
+                    <div class="curriculum-item">
+                        <span class="item-number">01</span>
+                        <h4>Module 1: Advanced Patterns</h4>
+                        <p>Harmonic patterns, Gartley, Butterfly, and other complex formations</p>
+                    </div>
+                    <div class="curriculum-item">
+                        <span class="item-number">02</span>
+                        <h4>Module 2: Elliott Wave Theory</h4>
+                        <p>Master wave patterns and predict market movements accurately</p>
+                    </div>
+                    <div class="curriculum-item">
+                        <span class="item-number">03</span>
+                        <h4>Module 3: Professional Strategies</h4>
+                        <p>Institutional-level trading strategies and techniques</p>
+                    </div>
+                    <div class="curriculum-item">
+                        <span class="item-number">04</span>
+                        <h4>Module 4: Algo Trading</h4>
+                        <p>Introduction to algorithmic and automated trading systems</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About Francis FX Academy</h2>
+                    <p>
+                        Francis FX Academy is a leading online forex trading education platform dedicated to transforming 
+                        aspiring traders into profitable professionals. With over 10,000 active students and 500+ comprehensive 
+                        video lessons, we've helped traders worldwide master the skills needed to succeed in forex trading.
+                    </p>
+                    <p>
+                        Our mission is to provide accessible, high-quality forex education that empowers individuals to take 
+                        control of their financial future. Whether you're a complete beginner or an experienced trader, we have 
+                        courses designed specifically for your level.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <span class="feature-icon">🎯</span>
+                            <h4>Expert Instructors</h4>
+                            <p>Learn from professional traders with 15+ years of experience</p>
+                        </div>
+                        <div class="about-feature">
+                            <span class="feature-icon">📚</span>
+                            <h4>Comprehensive Content</h4>
+                            <p>From basics to advanced strategies, all in one platform</p>
+                        </div>
+                        <div class="about-feature">
+                            <span class="feature-icon">💬</span>
+                            <h4>Community Support</h4>
+                            <p>Join thousands of traders in our active community</p>
+                        </div>
+                        <div class="about-feature">
+                            <span class="feature-icon">⏰</span>
+                            <h4>Lifetime Access</h4>
+                            <p>Your courses never expire, learn at your own pace</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="about-illustration">
+                        <div class="illustration-element element-1"></div>
+                        <div class="illustration-element element-2"></div>
+                        <div class="illustration-element element-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Student Success Stories</h2>
+            <p class="section-subtitle">Hear from traders who've transformed their financial journey</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "Francis FX Academy completely changed my perspective on forex trading. The courses are well-structured 
+                        and the instructors are incredibly knowledgeable. I'm now consistently profitable!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JM</div>
+                        <div>
+                            <h4>John Martinez</h4>
+                            <p>Professional Trader</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "As a complete beginner, I was overwhelmed. But the courses broke everything down perfectly. 
+                        Now I'm trading with confidence and making real money!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SS</div>
+                        <div>
+                            <h4>Sarah Smith</h4>
+                            <p>Beginner Trader</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "The advanced strategies course gave me the edge I needed to compete at the professional level. 
+                        Best investment I've ever made in my trading career."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MC</div>
+                        <div>
+                            <h4>Michael Chen</h4>
+                            <p>Advanced Trader</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "The community aspect is amazing! Being able to interact with other traders and get feedback 
+                        on my strategy has accelerated my growth exponentially."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">EP</div>
+                        <div>
+                            <h4>Emily Peterson</h4>
+                            <p>Active Trader</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "The live trading sessions are goldmines! Seeing professionals trade in real-time and explaining their decisions 
+                        has been invaluable to my learning process."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DB</div>
+                        <div>
+                            <h4>David Brown</h4>
+                            <p>Swing Trader</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "Excellent curriculum! The progression from beginner to advanced is perfect. I took all three courses 
+                        and haven't regretted it for a second."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LK</div>
+                        <div>
+                            <h4>Lisa Kim</h4>
+                            <p>Full-Time Trader</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Francis FX Academy?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon-large">📹</div>
+                    <h3>Video-Based Learning</h3>
+                    <p>High-quality video lessons you can watch anytime, anywhere at your own pace</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-large">🔒</div>
+                    <h3>Lifetime Access</h3>
+                    <p>Once you enroll, you have permanent access to all course materials</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-large">👨‍🏫</div>
+                    <h3>Expert Mentorship</h3>
+                    <p>Get guidance from professionals with decades of combined experience</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-large">💻</div>
+                    <h3>Trading Tools</h3>
+                    <p>Access to recommended platforms, indicators, and trading tools</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-large">📊</div>
+                    <h3>Live Trading Sessions</h3>
+                    <p>Watch professional traders execute strategies in real-time markets</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-large">🏆</div>
+                    <h3>Certificate Program</h3>
+                    <p>Earn recognized certificates upon course completion</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-large">👥</div>
+                    <h3>Community Forum</h3>
+                    <p>Connect with traders, share strategies, and learn from each other</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-large">🎁</div>
+                    <h3>Bonus Resources</h3>
+                    <p>Trading journals, checklists, and e-books included free</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Have questions? We're here to help</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <span class="info-icon">📧</span>
+                        <div>
+                            <h4>Email</h4>
+                            <p>support@francisfxacademy.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📱</span>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (800) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">💬</span>
+                        <div>
+                            <h4>Live Chat</h4>
+                            <p>Available 24/7 on our website</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📍</span>
+                        <div>
+                            <h4>Office</h4>
+                            <p>123 Finance Street, New York, NY</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Francis FX Academy</h4>
+                    <p>Leading forex trading education platform with 10,000+ students worldwide</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#disclaimer">Disclaimer</a></li>
+                        <li><a href="#cookies">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">f</a>
+                        <a href="#" class="social-icon">𝕏</a>
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">▶</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Francis FX Academy. All rights reserved. | Designed with ❤️ for traders</p>
+                <p class="disclaimer">
+                    Disclaimer: Forex trading involves substantial risk. Past performance does not guarantee future results. 
+                    Always consult with a financial advisor before trading.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Enrollment -->
+    <div id="enrollmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Enrollment Form</h2>
+            <p id="selectedCourse"></p>
+            <form onsubmit="handleEnrollment(event)">
+                <div class="form-group">
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <select required>
+                        <option value="">Select Experience Level</option>
+                        <option value="beginner">Complete Beginner</option>
+                        <option value="some">Some Trading Experience</option>
+                        <option value="experienced">Experienced Trader</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Tell us about your trading goals" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Complete Enrollment</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
